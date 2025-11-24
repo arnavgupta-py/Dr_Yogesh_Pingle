@@ -285,9 +285,9 @@ header h2 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 1rem 0;
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 .timeline-bar-container::before {
     content: '';
@@ -494,8 +494,8 @@ footer {
 .section-subtitle {
     font-family: var(--font-heading);
     font-size: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--glass-border-color);
     color: var(--secondary-accent);
@@ -503,8 +503,10 @@ footer {
 .certificate-row {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
     align-items: stretch;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .certificate-year {
     flex-shrink: 0;
@@ -559,6 +561,10 @@ footer {
     font-size: 0.85rem;
     color: var(--text-color);
     margin: 0;
+}
+.certificate-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
 }
 .timeline-container {
     position: relative;

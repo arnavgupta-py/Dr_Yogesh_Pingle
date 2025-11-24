@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Pingle Admin Panel</title>
+    <!-- Tailwind CSS for instant styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .glass-nested { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); }
+        .input-dark { background: #0f172a; border: 1px solid #334155; color: white; }
+        .input-dark:focus { border-color: #a855f7; outline: none; }
+        /* Scrollbar aesthetics */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    {% if view == 'login' %}
+    <!-- LOGIN VIEW -->
+    <div class="flex-grow flex items-center justify-center">
+        <div class="glass p-8 rounded-xl shadow-2xl w-full max-w-md">
+            <h2 class="text-3xl font-bold mb-6 text-center text-purple-400">Admin Access</h2>
+            {% if error %}
+                <div class="bg-red-500/20 text-red-200 p-3 rounded mb-4 text-sm text-center">{{ error }}</div>
+            {% endif %}
+            <form method="post" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" name="password" class="w-full p-3 rounded input-dark" placeholder="Enter secure password" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded transition duration-200">
+                    Unlock Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- DASHBOARD VIEW -->
+    <div class="flex flex-grow h-screen overflow-hidden">
+        
+        <!-- SIDEBAR -->
+        <div class="w-64 glass border-r border-gray-800 flex flex-col shrink-0">
+            <div class="p-6 border-b border-gray-800">
+                <h1 class="text-xl font-bold text-white">Content Manager</h1>
+                <p class="text-xs text-gray-400 mt-1">v2.0 • Easy Edit Mode</p>
+            </div>
+            <nav class="flex-grow overflow-y-auto p-4 space-y-2">
+                {% for file in files %}
+                <button onclick="loadFile('{{ file }}')" class="file-btn w-full text-left px-4 py-3 rounded hover:bg-white/5 transition flex items-center gap-3 text-gray-300" data-file="{{ file }}">
+                    <i class="fas fa-file-alt text-purple-400 w-5"></i>
+                    {{ file }}
+                </button>
+                {% endfor %}
+            </nav>
+            <div class="p-4 border-t border-gray-800">
+                <a href="/logout" class="block w-full text-center py-2 text-sm text-red-400 hover:text-red-300">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- MAIN EDITOR AREA -->
+        <div class="flex-grow flex flex-col h-full overflow-hidden relative bg-slate-900">
+            
+            <!-- HEADER -->
+            <div class="h-16 border-b border-gray-800 flex items-center justify-between px-8 bg-slate-900/95 backdrop-blur z-10">
+                <h2 id="current-file-label" class="text-lg font-semibold text-white">Select a file</h2>
+                <div class="flex gap-3">
+                    <button onclick="addNewRootItem()" id="add-btn" class="hidden px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded text-sm transition text-white">
+                        <i class="fas fa-plus mr-2"></i> Add Entry
+                    </button>
+                    <button onclick="saveCurrentFile()" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded text-sm font-bold shadow-lg shadow-purple-900/20 transition flex items-center text-white">
+                        <i class="fas fa-save mr-2"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM CONTAINER -->
+            <div id="editor-container" class="flex-grow overflow-y-auto p-8 pb-32 space-y-6">
+                <div class="text-center text-gray-500 mt-20">
+                    <i class="fas fa-arrow-left text-4xl mb-4 opacity-50"></i>
+                    <p>Select a file from the sidebar to begin editing.</p>
+                </div>
+            </div>
+
+            <!-- NOTIFICATION TOAST -->
+            <div id="toast" class="fixed bottom-8 right-8 bg-green-600 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition duration-300 z-50">
+                Changes saved successfully!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = null;
+        let currentFilename = null;
+
+        async function loadFile(filename) {
+            currentFilename = filename;
+            document.getElementById('current-file-label').textContent = filename;
+            
+            // Highlight active sidebar
+            document.querySelectorAll('.file-btn').forEach(b => b.classList.remove('bg-purple-900/30', 'text-white', 'border-l-4', 'border-purple-500'));
+            const activeBtn = document.querySelector(`button[data-file="${filename}"]`);
+            if(activeBtn) activeBtn.classList.add('bg-purple-900/30', 'text-white', 'border-l-4', 'border-purple-500');
+
+            try {
+                const res = await fetch(`/api/get/${filename}`);
+                currentData = await res.json();
+                renderEditor();
+            } catch (err) {
+                console.error(err);
+                alert("Error loading file");
+            }
+        }
+
+        function renderEditor() {
+            const container = document.getElementById('editor-container');
+            const addBtn = document.getElementById('add-btn');
+            container.innerHTML = '';
+
+            if (Array.isArray(currentData)) {
+                addBtn.classList.remove('hidden');
+                currentData.forEach((item, index) => {
+                    container.appendChild(createItemCard(item, index));
+                });
+            } else if (typeof currentData === 'object') {
+                addBtn.classList.add('hidden'); 
+                container.appendChild(createObjectForm(currentData));
+            }
+        }
+
+        // Card for Root Level Array Items
+        function createItemCard(item, index) {
+            const card = document.createElement('div');
+            card.className = "glass p-6 rounded-lg relative group transition hover:border-purple-500/50 mb-6";
+            
+            // Delete Button
+            const delBtn = document.createElement('button');
+            delBtn.className = "absolute top-4 right-4 text-gray-500 hover:text-red-400 opacity-100 p-2 z-10";
+            delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            delBtn.title = "Delete Entry";
+            delBtn.onclick = () => {
+                if(confirm('Are you sure you want to delete this entry?')) {
+                    currentData.splice(index, 1);
+                    renderEditor();
+                }
+            };
+            card.appendChild(delBtn);
+
+            // Title guesser
+            const title = item.name || item.title || item.degree || `Entry ${index + 1}`;
+            const header = document.createElement('h3');
+            header.className = "text-purple-400 font-bold mb-6 text-sm uppercase tracking-wider border-b border-gray-700 pb-2";
+            header.textContent = title;
+            card.appendChild(header);
+
+            // Generate Fields
+            card.appendChild(generateFormFields(item, (key, value) => {
+                currentData[index][key] = value;
+            }));
+
+            return card;
+        }
+
+        // Wrapper for Root Level Objects
+        function createObjectForm(data) {
+            const wrapper = document.createElement('div');
+            wrapper.className = "glass p-8 rounded-lg";
+            wrapper.appendChild(generateFormFields(data, (key, value) => {
+                currentData[key] = value;
+            }));
+            return wrapper;
+        }
+
+        // --- THE ENGINE ---
+        function generateFormFields(obj, updateCallback) {
+            const container = document.createElement('div');
+            container.className = "space-y-5";
+
+            for (const [key, value] of Object.entries(obj)) {
+                const fieldWrapper = document.createElement('div');
+                
+                const label = document.createElement('label');
+                label.className = "block text-xs font-bold text-gray-400 mb-1 uppercase tracking-wide";
+                label.textContent = key.replace(/_/g, ' ');
+
+                // 1. ARRAY HANDLING
+                if (Array.isArray(value)) {
+                    fieldWrapper.appendChild(label);
+                    
+                    // Case A: Simple String List (e.g. responsibilities)
+                    if (value.length === 0 || typeof value[0] !== 'object') {
+                        const textArea = document.createElement('textarea');
+                        textArea.className = "w-full p-3 bg-slate-900 border border-slate-700 rounded text-sm text-gray-300 h-24 focus:border-purple-500 focus:outline-none";
+                        textArea.value = value.join('\n');
+                        textArea.placeholder = "Enter items, one per line";
+                        textArea.onchange = (e) => {
+                            const newArray = e.target.value.split('\n').filter(line => line.trim() !== '');
+                            updateCallback(key, newArray);
+                        };
+                        fieldWrapper.appendChild(textArea);
+                        const hint = document.createElement('p');
+                        hint.className = "text-xs text-gray-500 mt-1";
+                        hint.textContent = "Enter each item on a new line.";
+                        fieldWrapper.appendChild(hint);
+                    } 
+                    // Case B: Complex Object List (e.g. expertise, certificates)
+                    else {
+                        const listContainer = document.createElement('div');
+                        listContainer.className = "space-y-3 pl-2 border-l-2 border-slate-700 mt-2";
+
+                        const renderNestedList = () => {
+                            listContainer.innerHTML = '';
+                            value.forEach((subItem, subIndex) => {
+                                const itemCard = document.createElement('div');
+                                itemCard.className = "glass-nested p-4 rounded relative hover:bg-white/5 transition";
+
+                                // Nested Delete
+                                const subDelBtn = document.createElement('button');
+                                subDelBtn.className = "absolute top-2 right-2 text-gray-500 hover:text-red-400";
+                                subDelBtn.innerHTML = '<i class="fas fa-times"></i>';
+                                subDelBtn.onclick = () => {
+                                    if(confirm('Remove this sub-item?')) {
+                                        value.splice(subIndex, 1);
+                                        renderNestedList(); 
+                                    }
+                                };
+                                itemCard.appendChild(subDelBtn);
+
+                                // Recursive generation for the object inside the array
+                                itemCard.appendChild(generateFormFields(subItem, (k, v) => {
+                                    subItem[k] = v; // Direct update of the sub-object reference
+                                }));
+
+                                listContainer.appendChild(itemCard);
+                            });
+
+                            // "Add Sub Item" Button
+                            const addSubBtn = document.createElement('button');
+                            addSubBtn.className = "w-full py-2 border border-dashed border-gray-600 text-gray-400 rounded hover:border-purple-500 hover:text-purple-400 transition text-xs font-bold uppercase tracking-widest mt-2";
+                            addSubBtn.innerHTML = `<i class="fas fa-plus mr-2"></i> Add to ${key}`;
+                            addSubBtn.onclick = () => {
+                                // Clone structure from first item or default
+                                let newSubItem = {};
+                                if (value.length > 0) {
+                                    newSubItem = JSON.parse(JSON.stringify(value[0]));
+                                    for(let k in newSubItem) newSubItem[k] = ""; 
+                                } else {
+                                    newSubItem = { name: "New Item", description: "" };
+                                }
+                                value.push(newSubItem);
+                                renderNestedList();
+                            };
+                            listContainer.appendChild(addSubBtn);
+                        };
+
+                        renderNestedList();
+                        fieldWrapper.appendChild(listContainer);
+                    }
+
+                } 
+                // 2. NESTED OBJECT HANDLING
+                else if (typeof value === 'object' && value !== null) {
+                    fieldWrapper.appendChild(label);
+                    const nestedContainer = document.createElement('div');
+                    nestedContainer.className = "pl-4 border-l-2 border-purple-500/30 my-2";
+                    nestedContainer.appendChild(generateFormFields(value, (nestedKey, nestedValue) => {
+                        obj[key][nestedKey] = nestedValue;
+                    }));
+                    fieldWrapper.appendChild(nestedContainer);
+
+                } 
+                // 3. STANDARD INPUT
+                else {
+                    fieldWrapper.appendChild(label);
+                    // Smart Input Types
+                    const isLongText = key === 'description' || key === 'details' || key === 'tagline' || key === 'message' || key === 'body';
+                    
+                    if (isLongText) {
+                        const input = document.createElement('textarea');
+                        input.className = "w-full p-3 rounded input-dark text-sm focus:border-purple-500 focus:outline-none transition";
+                        input.rows = 3;
+                        input.value = value || '';
+                        input.oninput = (e) => updateCallback(key, e.target.value);
+                        fieldWrapper.appendChild(input);
+                    } else {
+                        const input = document.createElement('input');
+                        input.className = "w-full p-3 rounded input-dark text-sm focus:border-purple-500 focus:outline-none transition";
+                        input.type = "text";
+                        input.value = value || '';
+                        input.oninput = (e) => updateCallback(key, e.target.value);
+                        fieldWrapper.appendChild(input);
+                    }
+                }
+                container.appendChild(fieldWrapper);
+            }
+            return container;
+        }
+
+        function addNewRootItem() {
+            if (!currentData || !Array.isArray(currentData)) return;
+            
+            let newItem = {};
+            if (currentData.length > 0) {
+                newItem = JSON.parse(JSON.stringify(currentData[0]));
+                for (let key in newItem) newItem[key] = "";
+            } else {
+                newItem = { title: "New Item", description: "" };
+            }
+            
+            currentData.unshift(newItem);
+            renderEditor();
+            
+            // Scroll to top to see new item
+            document.getElementById('editor-container').scrollTop = 0;
+        }
+
+        async function saveCurrentFile() {
+            if (!currentFilename) return;
+            
+            const btn = document.querySelector('button[onclick="saveCurrentFile()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            try {
+                const res = await fetch(`/api/save/${currentFilename}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(currentData)
+                });
+                
+                await new Promise(r => setTimeout(r, 500)); // Fake delay for UX
+                
+                // Show Toast
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+
+            } catch (err) {
+                alert("Failed to save changes.");
+                console.error(err);
+            } finally {
+                btn.innerHTML = originalText;
+            }
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
