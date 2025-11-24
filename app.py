@@ -7,8 +7,11 @@ from functools import wraps
 app = Flask(__name__, template_folder='templates', static_folder=None)
 
 # CONFIGURATION
-app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_key_default') # Secure for Render
-DATA_DIR = os.path.join(os.getcwd(), 'data')
+# 1. Get the absolute path of the folder containing this script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+
+app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_key_default') 
 PASSWORD = "pingle2025"
 
 # --- HELPERS ---
@@ -36,18 +39,20 @@ def save_json(filename, data):
 
 @app.route('/')
 def home():
-    # Serves your main portfolio page
-    return send_from_directory('.', 'index.html')
+    # Force Flask to look in the same folder as app.py
+    try:
+        return send_from_directory(BASE_DIR, 'index.html')
+    except Exception as e:
+        return f"<h1>Error: Could not find index.html</h1><p>Looked in: {BASE_DIR}</p><p>Error: {e}</p>", 404
 
 @app.route('/<path:filename>')
 def serve_static(filename):
-    # This acts as a file server for style.css, script.js, images/, etc.
-    # SECURITY: Block access to python files and system files
+    # Security: Block access to code files
     if filename.endswith('.py') or filename.endswith('.env') or filename == 'requirements.txt':
         return "Access Denied", 403
-    return send_from_directory('.', filename)
+    return send_from_directory(BASE_DIR, filename)
 
-# --- ADMIN ROUTES (The Hidden Panel) ---
+# --- ADMIN ROUTES ---
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -68,7 +73,6 @@ def logout():
 @app.route('/admin')
 @login_required
 def admin_dashboard():
-    # Get list of JSON files
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
     files = [f for f in os.listdir(DATA_DIR) if f.endswith('.json')]
@@ -89,8 +93,11 @@ def save_data(filename):
     return jsonify({"status": "success", "message": "File saved successfully!"})
 
 if __name__ == '__main__':
-    # Local development
-    if not os.path.exists('templates'):
-        os.makedirs('templates')
-    print("App running. Go to http://127.0.0.1:5000 for site, /admin for panel.")
+    # Ensure templates folder exists for local dev
+    template_path = os.path.join(BASE_DIR, 'templates')
+    if not os.path.exists(template_path):
+        os.makedirs(template_path)
+        print(f"WARNING: 'templates' folder not found at {template_path}")
+
+    print(f" Server running. serving files from: {BASE_DIR}")
     app.run(debug=True, port=5000)
