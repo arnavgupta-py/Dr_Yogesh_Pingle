@@ -644,14 +644,16 @@ footer {
     color: var(--primary-accent);
     font-size: 0.7rem;
 }
-.publication-controls {
+/* --- Generic Controls (Search & Filters) --- */
+.section-controls {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
     align-items: center;
     flex-wrap: wrap;
 }
-#publication-search {
+
+.section-search {
     flex-grow: 1;
     background-color: var(--glass-bg-color);
     border: 1px solid var(--glass-border-color);
@@ -662,17 +664,20 @@ footer {
     font-size: 0.95rem;
     min-width: 200px;
 }
-#publication-search:focus {
+
+.section-search:focus {
     outline: none;
     border-color: var(--primary-accent);
     box-shadow: 0 0 8px var(--primary-accent);
 }
+
 .filter-group {
     display: flex;
     gap: 0.5rem;
     align-items: center;
     flex-wrap: wrap;
 }
+
 .filter-btn {
     background-color: transparent;
     border: 1px solid var(--glass-border-color);
@@ -683,10 +688,12 @@ footer {
     font-size: 0.85rem;
     transition: all 0.3s ease;
 }
+
 .filter-btn:hover {
     background-color: var(--glass-bg-color);
     border-color: var(--secondary-accent);
 }
+
 .filter-btn.active {
     background-color: var(--secondary-accent);
     color: var(--heading-color);

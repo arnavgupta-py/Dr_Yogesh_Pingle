@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="sticky-links">
@@ -28,7 +28,7 @@
                 </h2>
             </div>
             <div class="profile-image-container">
-                <img src="profile.png" alt="Dr. Yogesh Pingle" class="profile-image">
+                <img src="{{ url_for('static', filename='profile.png') }}" alt="Dr. Yogesh Pingle" class="profile-image">
             </div>
         </header>
 
@@ -109,20 +109,28 @@
 
             <section id="publications" class="content-section">
                 <h2 data-scroll>Selected Publications</h2>
-                <div class="publication-controls">
-                    <input type="search" id="publication-search" placeholder="Search by title, author, or journal...">
-                    <div class="filter-group" id="publication-filters"></div>
+                <div class="section-controls">
+                    <input type="search" id="search-publications" class="section-search" placeholder="Search by title, author, or journal...">
+                    <div class="filter-group" id="filters-publications"></div>
                 </div>
                 <div class="publication-list"></div>
             </section>
             
             <section id="events" class="content-section">
                 <h2 data-scroll>Event Conducted</h2>
+                <div class="section-controls">
+                    <input type="search" id="search-events" class="section-search" placeholder="Search events...">
+                    <div class="filter-group" id="filters-events"></div>
+                </div>
                 <div class="content-grid"></div>
             </section>
             
             <section id="contributions" class="content-section">
                 <h2 data-scroll>Key Contributions & Projects</h2>
+                <div class="section-controls">
+                    <input type="search" id="search-contributions" class="section-search" placeholder="Search contributions...">
+                    <div class="filter-group" id="filters-contributions"></div>
+                </div>
                 <div class="content-grid"></div>
             </section>
 
@@ -277,15 +285,15 @@
         </div>
     </template>
 
-    <audio id="audio-Sa" src="notes/Sa.wav" preload="auto"></audio>
-    <audio id="audio-Re" src="notes/Re.wav" preload="auto"></audio>
-    <audio id="audio-Ga" src="notes/Ga.wav" preload="auto"></audio>
-    <audio id="audio-Ma" src="notes/Ma.wav" preload="auto"></audio>
-    <audio id="audio-Pa" src="notes/Pa.wav" preload="auto"></audio>
-    <audio id="audio-Dha" src="notes/Dha.wav" preload="auto"></audio>
-    <audio id="audio-Ni" src="notes/Ni.wav" preload="auto"></audio>
-    <audio id="audio-Sa_hi" src="notes/Sa_hi.wav" preload="auto"></audio>
+    <audio id="audio-Sa" src="{{ url_for('static', filename='notes/Sa.wav')}}" preload="auto"></audio>
+    <audio id="audio-Re" src="{{ url_for('static', filename='notes/Re.wav')}}" preload="auto"></audio>
+    <audio id="audio-Ga" src="{{ url_for('static', filename='notes/Ga.wav')}}" preload="auto"></audio>
+    <audio id="audio-Ma" src="{{ url_for('static', filename='notes/Ma.wav')}}" preload="auto"></audio>
+    <audio id="audio-Pa" src="{{ url_for('static', filename='notes/Pa.wav')}}" preload="auto"></audio>
+    <audio id="audio-Dha" src="{{ url_for('static', filename='notes/Dha.wav')}}" preload="auto"></audio>
+    <audio id="audio-Ni" src="{{ url_for('static', filename='notes/Ni.wav')}}" preload="auto"></audio>
+    <audio id="audio-Sa_hi" src="{{ url_for('static', filename='notes/Sa_hi.wav')}}" preload="auto"></audio>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

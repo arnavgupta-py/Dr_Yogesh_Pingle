@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Optimized Self Guided Quantum GAN Based Scheduling Framework for Cloud Computing",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "Transactions on Emerging Telecommunications Technologies (Wiley)",
+    "year": 2025,
+    "month": 3,
+    "link": "https://dblp.org/rec/journals/ett/SelvamBPS25",
+    "featured": true
+  },
+  {
+    "title": "Harmonix: A Comprehensive Approach for Advance Music Composition using AI-ML",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "Intl. Conf. on Computing for Sustainable Global Development (INDIACom)",
+    "year": 2025,
+    "month": 4,
+    "link": "https://ieeexplore.ieee.org/document/11115562",
+    "featured": true
+  },
+  {
+    "title": "The Recognition of Doctor's Handwritten Prescriptions: A Linguistic and Societal Perspective",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "Intl. Conf. on Computing for Sustainable Global Development (INDIACom)",
+    "year": 2025,
+    "month": 4,
+    "link": "https://ieeexplore.ieee.org/document/11115221",
+    "featured": true
+  },
+  {
+    "title": "RagaMoodSync: A Deep Learning Framework for Hindustani Raga Recommendations",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "International Journal of Information Technology (Springer)",
+    "year": 2024,
+    "month": 10,
+    "link": "https://doi.org/10.1007/s41870-025-02531-y",
+    "featured": true
+  },
+  {
+    "title": "Statistical Assessment of Indian Classical Music's Role in Diabetes & Hypertension Management",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "International Journal of Information Technology (Springer)",
+    "year": 2024,
+    "month": 10,
+    "link": "https://doi.org/10.1007/s41870-024-02227-9",
+    "featured": true
+  },
+  {
+    "title": "Accuracy Prediction for Music Therapy Data using Kappa Model",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "IEEE Conference",
+    "year": 2024,
+    "month": 3,
+    "link": "https://ieeexplore.ieee.org/document/10498965",
+    "featured": false
+  },
+  {
+    "title": "An in-depth analysis of music structure and its effects on human body for music therapy",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "Springer Journal (Multimedia Tools and Applications)",
+    "year": 2023,
+    "month": 10,
+    "link": "https://doi.org/10.1007/s11042-023-17290-w",
+    "featured": false
+  },
+  {
+    "title": "A Review on the use of Machine Learning Techniques in Music Recommendation System",
+    "authors": "Pingle, Y. (et al.)",
+    "outlet": "IEEE International Conference",
+    "year": 2023,
+    "month": 3,
+    "link": "https://ieeexplore.ieee.org/document/10112289",
+    "featured": false
+  },
+  {
+    "title": "Data Warehousing and Mining",
+    "authors": "Pingle, Y.",
+    "outlet": "Book (Nirali Prakashan, ISBN: 978-81-19115-09-9)",
+    "year": 2023,
+    "month": 3,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9788119115099",
+    "featured": false
+  },
+  {
+    "title": "Computer Network",
+    "authors": "Pingle, Y.",
+    "outlet": "Book (Nirali Prakashan, ISBN: 978-93-5451-823-2)",
+    "year": 2023,
+    "month": 2,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789354518232",
+    "featured": false
+  },
+  {
+    "title": "Internet of Things",
+    "authors": "Pingle, Y.",
+    "outlet": "Book (SYGEN Learning, ISBN: 978-8195567232)",
+    "year": 2021,
+    "month": 12,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9788195567232",
+    "featured": false
+  }
+  
+]

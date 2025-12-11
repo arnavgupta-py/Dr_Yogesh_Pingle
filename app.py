@@ -3,18 +3,14 @@ import json
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory
 from functools import wraps
 
-# Set static_folder to None so we can handle static files manually and securely
-app = Flask(__name__, template_folder='templates', static_folder=None)
+app = Flask(__name__)
 
-# CONFIGURATION
-# 1. Get the absolute path of the folder containing this script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, 'data')
+DATA_DIR = os.path.join(BASE_DIR, 'static', 'data')
 
 app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_key_default') 
 PASSWORD = "pingle2025"
 
-# --- HELPERS ---
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -35,24 +31,9 @@ def save_json(filename, data):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-# --- PUBLIC ROUTES (The Main Website) ---
-
 @app.route('/')
 def home():
-    # Force Flask to look in the same folder as app.py
-    try:
-        return send_from_directory(BASE_DIR, 'index.html')
-    except Exception as e:
-        return f"<h1>Error: Could not find index.html</h1><p>Looked in: {BASE_DIR}</p><p>Error: {e}</p>", 404
-
-@app.route('/<path:filename>')
-def serve_static(filename):
-    # Security: Block access to code files
-    if filename.endswith('.py') or filename.endswith('.env') or filename == 'requirements.txt':
-        return "Access Denied", 403
-    return send_from_directory(BASE_DIR, filename)
-
-# --- ADMIN ROUTES ---
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -77,8 +58,6 @@ def admin_dashboard():
         os.makedirs(DATA_DIR)
     files = [f for f in os.listdir(DATA_DIR) if f.endswith('.json')]
     return render_template('admin.html', view='dashboard', files=files)
-
-# --- API ENDPOINTS ---
 
 @app.route('/api/get/<filename>')
 @login_required

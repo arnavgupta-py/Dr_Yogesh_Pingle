@@ -1,0 +1,178 @@
+[
+  {
+    "title": "Board of Studies (BOS) Member",
+    "role": "Member (Computer Science)",
+    "organization": "Sir Sitaram and Lady Shantabai Patkar College",
+    "details": "Appointed on 15 Feb 2025 for Computer Science programs.",
+    "icon": "fas fa-university",
+    "date": "15 Feb 2025"
+  },
+  {
+    "title": "Syllabus Setter (NEP 2020)",
+    "role": "Syllabus Setter",
+    "organization": "University of Mumbai",
+    "details": "Designed curriculum for 'Full Stack Java Programming' for Dept of AIDS, CSE(DS) (ACY 2025-26).",
+    "icon": "fas fa-pen-nib",
+    "date": "Jan 2025"
+  },
+  {
+    "title": "Teaching Innovation: Flipped Classrooms",
+    "role": "Instructor",
+    "organization": "Academic Initiative",
+    "details": "Implemented flipped classroom strategies for Java and IoT applications, focusing on active problem-solving in class.",
+    "icon": "fas fa-chalkboard-teacher",
+    "date": "July 2024"
+  },
+  {
+    "title": "Project-Based Learning (PBL)",
+    "role": "Mentor",
+    "organization": "Academic Initiative",
+    "details": "Engaged students in real-world mini-projects managed via GitHub.",
+    "icon": "fab fa-github",
+    "date": "July 2024"
+  },
+  {
+    "title": "Open Educational Resources (OER)",
+    "role": "Advocate",
+    "organization": "Academic Initiative",
+    "details": "Integrated high-quality free resources (Java/Python docs) into the curriculum.",
+    "icon": "fas fa-book-open",
+    "date": "July 2024"
+  },
+  {
+    "title": "MoU with DeltaSoft Systems",
+    "role": "Coordinator",
+    "organization": "DeltaSoft Systems Pvt. Ltd.",
+    "details": "Established collaboration from 05 July 2024 to 04 July 2029. Facilitated Code-o-Fiesta event.",
+    "icon": "fas fa-handshake",
+    "date": "05 July 2024"
+  },
+  {
+    "title": "MoU with EDBA Academy",
+    "role": "Coordinator",
+    "organization": "Surfboard India Pvt. Ltd.",
+    "details": "Established collaboration from 01 July 2024 to 04 July 2029.",
+    "icon": "fas fa-handshake",
+    "date": "01 July 2024"
+  },
+  {
+    "title": "College Website Committee",
+    "role": "Technical Head",
+    "organization": "Institute Level",
+    "details": "Managed development of forms and data updation for the college website.",
+    "icon": "fas fa-globe",
+    "date": "June 2024"
+  },
+  {
+    "title": "Student Council",
+    "role": "Member",
+    "organization": "Institute Level",
+    "details": "Arranged judges and chief guests for 'Zeal 2025' cultural festival.",
+    "icon": "fas fa-users",
+    "date": "Feb 2025"
+  },
+  {
+    "title": "German Club",
+    "role": "Head Coordinator & Teacher",
+    "organization": "Institute Level",
+    "details": "Conducted German language seminars and classes.",
+    "icon": "fas fa-language",
+    "date": "July 2024"
+  },
+  {
+    "title": "Reviewer",
+    "role": "Peer Reviewer",
+    "organization": "Intl. Conf. on Intelligent Computing and Networking (ICICN)",
+    "details": "Reviewed technical papers for the conference.",
+    "icon": "fas fa-glasses",
+    "date": "Dec 2024"
+  },
+  {
+    "title": "Patent: Musical Medical Healing Device",
+    "role": "Inventor",
+    "organization": "The Patent Office Journal",
+    "details": "Published: 15/12/2023. Title: 'Musical Medical Illness Healing Electronic Device'.",
+    "icon": "fas fa-lightbulb",
+    "date": "15 Dec 2023"
+  },
+  {
+    "title": "Teaching Innovation: Online Tools",
+    "role": "Instructor",
+    "organization": "Academic Initiative",
+    "details": "Taught online tools (like JDoodle) enabling students to perform practicals on mobile devices.",
+    "icon": "fas fa-mobile-alt",
+    "date": "2023-2024"
+  },
+  {
+    "title": "Teaching Innovation: GitHub Usage",
+    "role": "Mentor",
+    "organization": "Academic Initiative",
+    "details": "Implemented GitHub for student project storage and version control.",
+    "icon": "fab fa-github",
+    "date": "2023-2024"
+  },
+  {
+    "title": "Code-o-Fiesta Competition",
+    "role": "Organizer",
+    "organization": "Department Level",
+    "details": "Organized coding competition for students to learn real-time project implementation.",
+    "icon": "fas fa-code",
+    "date": "2023-2024"
+  },
+  {
+    "title": "MoU with Techq Kconnect",
+    "role": "Coordinator",
+    "organization": "Techq Kconnect Pvt. Ltd.",
+    "details": "Established collaboration for academic and placement support.",
+    "icon": "fas fa-handshake",
+    "date": "2023-2024"
+  },
+  {
+    "title": "MoU with SS Dies Work",
+    "role": "Coordinator",
+    "organization": "SS Dies Work",
+    "details": "Facilitated industry projects undertaken as mini-projects.",
+    "icon": "fas fa-industry",
+    "date": "2023-2024"
+  },
+  {
+    "title": "College Website Committee",
+    "role": "Technical Head",
+    "organization": "Institute/Departmental Level",
+    "details": "Managed development of forms and data updation.",
+    "icon": "fas fa-globe",
+    "date": "2023-2024"
+  },
+  {
+    "title": "Student Council",
+    "role": "Member",
+    "organization": "Institute Level",
+    "details": "Arranged Judges and Chief Guest for 'Zeal 2024'.",
+    "icon": "fas fa-users",
+    "date": "2024"
+  },
+  {
+    "title": "German Club",
+    "role": "Head (Co-Ordinator) & Teacher",
+    "organization": "Institute Level",
+    "details": "Conducted German classes and seminars.",
+    "icon": "fas fa-language",
+    "date": "2023-2024"
+  },
+  {
+    "title": "IIC Committee",
+    "role": "Member",
+    "organization": "Institute Level",
+    "details": "Participated in IIC Seminars.",
+    "icon": "fas fa-project-diagram",
+    "date": "2023-2024"
+  },
+  {
+    "title": "Mini Project Coordinator",
+    "role": "Coordinator",
+    "organization": "Department (SE)",
+    "details": "Coordinated Second Year mini-projects.",
+    "icon": "fas fa-tasks",
+    "date": "2023-2024"
+  }
+]

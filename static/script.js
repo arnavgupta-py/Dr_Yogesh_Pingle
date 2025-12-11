@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const fetchInitialData = async (sections) => {
         try {
             for (const section of sections) {
-                const response = await fetch(`data/${section}.json`);
+                const response = await fetch(`static/data/${section}.json`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status} for ${section}.json`);
                 }
@@ -56,7 +56,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
         elements.forEach(el => observer.observe(el));
     };
-    
+
+    // --- HELPER FUNCTIONS ---
+
+    // 1. Academic Year Logic (June 1st Cutoff)
+    // 01 June 2024 to 31 May 2025 -> 2024-2025
+    function getAcademicYear(year, month) {
+        // Handle input month (1-12 or "January")
+        let monthIndex = -1; // 0-11
+        
+        if (typeof month === 'string') {
+            const date = new Date(`${month} 1, 2000`);
+            monthIndex = date.getMonth();
+        } else {
+            monthIndex = month - 1; 
+        }
+
+        // June (Index 5) is the start of the new academic year
+        if (monthIndex >= 5) {
+            return `${year}-${year + 1}`;
+        } else {
+            return `${year - 1}-${year}`;
+        }
+    }
+
+    // 2. Parse Date String for Events/Contributions
+    // e.g. "July 2024 - March 2025" -> "2024-2025"
+    // e.g. "07 Feb 2025" -> "2024-2025"
+    function getAcademicYearFromDateStr(dateStr) {
+        const years = dateStr.match(/\d{4}/g);
+        if (!years) return 'Unknown';
+
+        // Use the first year mentioned as the anchor
+        const year = parseInt(years[0]);
+        
+        // Try to find a month name
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 
+                            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthRegex = new RegExp(`\\b(${monthNames.join('|')})\\b`, 'i');
+        const match = dateStr.match(monthRegex);
+
+        let monthIndex = 0; // Default to Jan if no month found (implies Spring semester of that year usually)
+        
+        if (match) {
+            const date = new Date(`${match[0]} 1, ${year}`);
+            monthIndex = date.getMonth();
+        }
+
+        // Apply Logic: June (5) or later starts the year
+        if (monthIndex >= 5) {
+            return `${year}-${year + 1}`;
+        } else {
+            // E.g. Feb 2025 (Index 1) -> 2024-2025
+            return `${year - 1}-${year}`;
+        }
+    }
+
+    // 3. Generic Filter Setup
+    function setupFiltering(items, searchInputId, filterContainerId, dateAttribute = null) {
+        const searchInput = document.getElementById(searchInputId);
+        const filterContainer = document.getElementById(filterContainerId);
+        
+        const filterItems = () => {
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            const activeFilter = filterContainer ? filterContainer.querySelector('.filter-btn.active') : null;
+            const activeYear = activeFilter ? activeFilter.dataset.year : 'all';
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const year = dateAttribute ? item.dataset[dateAttribute] : 'all';
+                
+                const matchesSearch = text.includes(searchTerm);
+                const matchesYear = (activeYear === 'all' || year === activeYear);
+
+                if (matchesSearch && matchesYear) {
+                    item.style.display = ''; 
+                    item.classList.remove('hidden');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.add('hidden');
+                }
+            });
+        };
+
+        if (searchInput) searchInput.addEventListener('input', filterItems);
+        
+        if (filterContainer) {
+            filterContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    filterContainer.querySelector('.filter-btn.active').classList.remove('active');
+                    e.target.classList.add('active');
+                    filterItems();
+                }
+            });
+        }
+    }
+
     function renderAbout(data) {
         const section = document.getElementById('about');
         const grid = section.querySelector('.content-grid');
@@ -231,28 +326,25 @@ document.addEventListener('DOMContentLoaded', function () {
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
 
-    function getAcademicYear(year, month) {
-        if (month >= 7) {
-            return `${year} - ${year + 1}`;
-        } else {
-            return `${year - 1} - ${year}`;
-        }
-    }
-
     function renderPublications(data) {
         const section = document.getElementById('publications');
         const container = section.querySelector('.publication-list');
         const template = document.getElementById('template-publication');
-        const filterContainer = document.getElementById('publication-filters');
-        const searchInput = document.getElementById('publication-search');
+        const filterContainer = document.getElementById('filters-publications');
 
-        if (!container || !template || !data || !filterContainer || !searchInput) return;
+        if (!container || !template || !data) return;
         
         container.innerHTML = '';
+        const years = new Set();
+
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
             const pubItem = clone.querySelector('.publication-item');
-            pubItem.dataset.academicYear = getAcademicYear(item.year, item.month);
+            
+            // Calculate Academic Year based on strict June 1st cutoff
+            const acYear = getAcademicYear(item.year, item.month);
+            pubItem.dataset.year = acYear;
+            years.add(acYear);
             
             clone.querySelector('.publication-title').textContent = item.title;
             clone.querySelector('.publication-authors').textContent = item.authors;
@@ -261,56 +353,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             container.appendChild(clone);
         });
-        
-        const academicYears = [...new Set(data.map(item => getAcademicYear(item.year, item.month)))].sort().reverse();
-        filterContainer.innerHTML = '';
 
-        const allBtn = document.createElement('button');
-        allBtn.className = 'filter-btn active';
-        allBtn.textContent = 'All';
-        allBtn.dataset.year = 'all';
-        filterContainer.appendChild(allBtn);
-
-        academicYears.forEach(year => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn';
-            btn.textContent = year;
-            btn.dataset.year = year;
-            filterContainer.appendChild(btn);
-        });
-
-        const publicationItems = container.querySelectorAll('.publication-item');
-
-        function filterPublications() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const activeFilter = filterContainer.querySelector('.filter-btn.active');
-            const activeYear = activeFilter ? activeFilter.dataset.year : 'all';
-
-            publicationItems.forEach(item => {
-                const itemText = item.textContent.toLowerCase();
-                const itemAcademicYear = item.dataset.academicYear;
-
-                const matchesSearch = itemText.includes(searchTerm);
-                const matchesYear = (activeYear === 'all' || itemAcademicYear === activeYear);
-
-                if (matchesSearch && matchesYear) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
+        if (filterContainer) {
+            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+            [...years].sort().reverse().forEach(year => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = year;
+                btn.dataset.year = year;
+                filterContainer.appendChild(btn);
             });
         }
-
-        searchInput.addEventListener('input', filterPublications);
-
-        filterContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                filterContainer.querySelector('.filter-btn.active').classList.remove('active');
-                e.target.classList.add('active');
-                filterPublications();
-            }
-        });
         
+        setupFiltering(section.querySelectorAll('.publication-item'), 'search-publications', 'filters-publications', 'year');
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
 
@@ -318,13 +373,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const section = document.getElementById('events');
         const container = section.querySelector('.content-grid');
         const template = document.getElementById('template-event');
+        const filterContainer = document.getElementById('filters-events');
 
         if (!container || !template || !data) return;
         container.innerHTML = '';
+        const years = new Set();
 
+        
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
+            const card = clone.querySelector('.event-card');
             
+            const year = getAcademicYearFromDateStr(item.date);
+            card.dataset.year = year;
+            years.add(year);
+
             clone.querySelector('.event-name').textContent = item.name;
             clone.querySelector('.event-icon').className = `event-icon ${item.icon}`;
             clone.querySelector('.event-role').textContent = item.role;
@@ -333,6 +396,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             container.appendChild(clone);
         });
+
+        if (filterContainer) {
+            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+            [...years].sort().reverse().forEach(year => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = year;
+                btn.dataset.year = year;
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        setupFiltering(section.querySelectorAll('.event-card'), 'search-events', 'filters-events', 'year');
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
     
@@ -340,13 +416,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const section = document.getElementById('contributions');
         const container = section.querySelector('.content-grid');
         const template = document.getElementById('template-contribution');
+        const filterContainer = document.getElementById('filters-contributions'); 
 
         if (!container || !template || !data) return;
         container.innerHTML = '';
+        const years = new Set();
 
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
+            const card = clone.querySelector('.contribution-card');
             
+            let year = 'Other';
+            if (item.date) {
+                year = getAcademicYearFromDateStr(item.date);
+            }
+            
+            card.dataset.year = year;
+            years.add(year);
+
             clone.querySelector('.contribution-title').textContent = item.title;
             clone.querySelector('.contribution-icon').className = `contribution-icon ${item.icon}`;
             clone.querySelector('.contribution-role').textContent = item.role;
@@ -355,6 +442,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             container.appendChild(clone);
         });
+
+        if (filterContainer) {
+            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+            [...years].sort().reverse().forEach(year => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = year;
+                btn.dataset.year = year;
+                filterContainer.appendChild(btn);
+            });
+        }
+        
+        setupFiltering(section.querySelectorAll('.contribution-card'), 'search-contributions', 'filters-contributions', 'year');
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
     
