@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    
+
                     if (entry.target.classList.contains('content-grid')) {
                         entry.target.querySelectorAll('.content-card').forEach((card, index) => {
                             card.style.setProperty('--card-index', index);
@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function getAcademicYear(year, month) {
         // Handle input month (1-12 or "January")
         let monthIndex = -1; // 0-11
-        
+
         if (typeof month === 'string') {
             const date = new Date(`${month} 1, 2000`);
             monthIndex = date.getMonth();
         } else {
-            monthIndex = month - 1; 
+            monthIndex = month - 1;
         }
 
         // June (Index 5) is the start of the new academic year
@@ -89,15 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Use the first year mentioned as the anchor
         const year = parseInt(years[0]);
-        
+
         // Try to find a month name
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 
-                            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const monthRegex = new RegExp(`\\b(${monthNames.join('|')})\\b`, 'i');
         const match = dateStr.match(monthRegex);
 
         let monthIndex = 0; // Default to Jan if no month found (implies Spring semester of that year usually)
-        
+
         if (match) {
             const date = new Date(`${match[0]} 1, ${year}`);
             monthIndex = date.getMonth();
@@ -113,24 +113,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 3. Generic Filter Setup
-    function setupFiltering(items, searchInputId, filterContainerId, dateAttribute = null) {
+    function setupFiltering(items, searchInputId, filterConfigs) {
         const searchInput = document.getElementById(searchInputId);
-        const filterContainer = document.getElementById(filterContainerId);
-        
+
         const filterItems = () => {
             const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-            const activeFilter = filterContainer ? filterContainer.querySelector('.filter-btn.active') : null;
-            const activeYear = activeFilter ? activeFilter.dataset.year : 'all';
 
             items.forEach(item => {
                 const text = item.textContent.toLowerCase();
-                const year = dateAttribute ? item.dataset[dateAttribute] : 'all';
-                
                 const matchesSearch = text.includes(searchTerm);
-                const matchesYear = (activeYear === 'all' || year === activeYear);
 
-                if (matchesSearch && matchesYear) {
-                    item.style.display = ''; 
+                let matchesFilters = true;
+                for (const config of filterConfigs) {
+                    const container = document.getElementById(config.containerId);
+                    if (!container) continue;
+
+                    const activeBtn = container.querySelector('.filter-btn.active');
+                    const activeVal = activeBtn ? activeBtn.dataset.filter : 'all';
+                    const itemVal = item.dataset[config.attribute];
+
+                    if (activeVal !== 'all' && itemVal !== activeVal) {
+                        matchesFilters = false;
+                        break;
+                    }
+                }
+
+                if (matchesSearch && matchesFilters) {
+                    item.style.display = '';
                     item.classList.remove('hidden');
                 } else {
                     item.style.display = 'none';
@@ -140,16 +149,19 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         if (searchInput) searchInput.addEventListener('input', filterItems);
-        
-        if (filterContainer) {
-            filterContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('filter-btn')) {
-                    filterContainer.querySelector('.filter-btn.active').classList.remove('active');
-                    e.target.classList.add('active');
-                    filterItems();
-                }
-            });
-        }
+
+        filterConfigs.forEach(config => {
+            const container = document.getElementById(config.containerId);
+            if (container) {
+                container.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-btn')) {
+                        container.querySelector('.filter-btn.active').classList.remove('active');
+                        e.target.classList.add('active');
+                        filterItems();
+                    }
+                });
+            }
+        });
     }
 
     function renderAbout(data) {
@@ -157,11 +169,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const grid = section.querySelector('.content-grid');
         const taglineTemplate = document.getElementById('template-tagline');
         const expertiseTemplate = document.getElementById('template-expertise');
-        
+
         if (!grid || !taglineTemplate || !expertiseTemplate) return;
 
         grid.innerHTML = '';
-        
+
         const taglineClone = taglineTemplate.content.cloneNode(true);
         taglineClone.querySelector('p').textContent = data.tagline;
         grid.appendChild(taglineClone);
@@ -177,11 +189,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const iconElement = expertiseClone.querySelector('i');
             const nameElement = expertiseClone.querySelector('h4');
             const descElement = expertiseClone.querySelector('p');
-            
+
             if (iconElement) iconElement.className = item.icon;
             if (nameElement) nameElement.textContent = item.name;
             if (descElement) descElement.textContent = item.description;
-            
+
             grid.appendChild(expertiseClone);
         });
 
@@ -195,16 +207,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const timelineGrid = section.querySelector('.content-grid');
         const timelineContainer = section.querySelector('.timeline-bar-container');
         const certificatesContainer = document.getElementById('certificates-container');
-        
+
         renderEducationTimeline(data.timeline, timelineGrid, timelineContainer);
-        renderEducationCertificates(data.certificates, certificatesContainer);
+
 
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
 
     function renderEducationTimeline(timelineData, grid, timelineContainer) {
         if (!grid || !timelineContainer || !timelineData) return;
-        
+
         grid.innerHTML = '';
         timelineContainer.innerHTML = '';
 
@@ -217,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const timelineCircle = document.createElement('div');
             timelineCircle.className = 'timeline-circle';
-            
+
             const timelineYear = document.createElement('span');
             timelineYear.className = 'timeline-year';
             timelineYear.textContent = item.year;
@@ -233,11 +245,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const header = document.createElement('div');
             header.className = 'education-header';
-            
+
             const degree = document.createElement('h3');
             degree.className = 'degree';
             degree.textContent = item.degree;
-            
+
             const branch = document.createElement('h4');
             branch.className = 'branch';
             if (item.branch) branch.textContent = item.branch;
@@ -252,51 +264,21 @@ document.addEventListener('DOMContentLoaded', function () {
             college.className = 'college';
             college.textContent = item.college;
             body.appendChild(college);
-            
+
             const details = document.createElement('p');
             details.className = 'details';
             details.textContent = item.details;
-            
+
             card.appendChild(header);
             card.appendChild(body);
             if (item.details) card.appendChild(details);
             grid.appendChild(card);
         });
-        
+
         setupEducationHover();
     }
 
-    function renderEducationCertificates(certificateData, container) {
-        if (!container || !certificateData) return;
-        container.innerHTML = '';
-        const cardTemplate = document.getElementById('template-certificate-card');
 
-        certificateData.forEach(yearGroup => {
-            const row = document.createElement('div');
-            row.className = 'certificate-row';
-            row.dataset.scroll = '';
-
-            const yearEl = document.createElement('div');
-            yearEl.className = 'certificate-year';
-            yearEl.textContent = yearGroup.year;
-            row.appendChild(yearEl);
-
-            const cardsGrid = document.createElement('div');
-            cardsGrid.className = 'certificate-cards-grid';
-
-            yearGroup.items.forEach(item => {
-                const cardClone = cardTemplate.content.cloneNode(true);
-                cardClone.querySelector('.certificate-image').src = item.image;
-                cardClone.querySelector('.certificate-image').alt = item.title;
-                cardClone.querySelector('.certificate-title').textContent = item.title;
-                cardClone.querySelector('.certificate-issuer').textContent = item.issuer;
-                cardsGrid.appendChild(cardClone);
-            });
-
-            row.appendChild(cardsGrid);
-            container.appendChild(row);
-        });
-    }
 
     function renderExperience(data) {
         const section = document.getElementById('experience');
@@ -308,11 +290,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
-            
+
             clone.querySelector('.experience-title').textContent = item.title;
             clone.querySelector('.experience-dates').textContent = item.dates;
             clone.querySelector('.experience-institution').textContent = item.institution;
-            
+
             const responsibilitiesList = clone.querySelector('.experience-responsibilities');
             responsibilitiesList.innerHTML = '';
             item.responsibilities.forEach(resp => {
@@ -330,22 +312,27 @@ document.addEventListener('DOMContentLoaded', function () {
         const section = document.getElementById('publications');
         const container = section.querySelector('.publication-list');
         const template = document.getElementById('template-publication');
-        const filterContainer = document.getElementById('filters-publications');
+        const yearFilterContainer = document.getElementById('filters-publications');
+        const categoryFilterContainer = document.getElementById('filters-publications-category');
 
         if (!container || !template || !data) return;
-        
+
         container.innerHTML = '';
         const years = new Set();
+        const categories = new Set(['Patent', 'Book', 'Journal', 'Conference']); // Ensure these categories are always present
 
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
             const pubItem = clone.querySelector('.publication-item');
-            
+
             // Calculate Academic Year based on strict June 1st cutoff
             const acYear = getAcademicYear(item.year, item.month);
             pubItem.dataset.year = acYear;
+            pubItem.dataset.category = item.category || 'Other';
+
             years.add(acYear);
-            
+            if (item.category) categories.add(item.category);
+
             clone.querySelector('.publication-title').textContent = item.title;
             clone.querySelector('.publication-authors').textContent = item.authors;
             clone.querySelector('.publication-outlet').textContent = `${item.outlet}, ${item.year}`;
@@ -354,18 +341,44 @@ document.addEventListener('DOMContentLoaded', function () {
             container.appendChild(clone);
         });
 
-        if (filterContainer) {
-            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+        if (categoryFilterContainer) {
+            categoryFilterContainer.innerHTML = '<span class="filter-label">Category:</span>';
+            const allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.textContent = 'All';
+            allBtn.dataset.filter = 'all';
+            categoryFilterContainer.appendChild(allBtn);
+
+            [...categories].sort().forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = cat;
+                btn.dataset.filter = cat;
+                categoryFilterContainer.appendChild(btn);
+            });
+        }
+
+        if (yearFilterContainer) {
+            yearFilterContainer.innerHTML = '<span class="filter-label">Year:</span>';
+            const allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.textContent = 'All';
+            allBtn.dataset.filter = 'all';
+            yearFilterContainer.appendChild(allBtn);
+
             [...years].sort().reverse().forEach(year => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.textContent = year;
-                btn.dataset.year = year;
-                filterContainer.appendChild(btn);
+                btn.dataset.filter = year;
+                yearFilterContainer.appendChild(btn);
             });
         }
-        
-        setupFiltering(section.querySelectorAll('.publication-item'), 'search-publications', 'filters-publications', 'year');
+
+        setupFiltering(section.querySelectorAll('.publication-item'), 'search-publications', [
+            { containerId: 'filters-publications-category', attribute: 'category' },
+            { containerId: 'filters-publications', attribute: 'year' }
+        ]);
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
 
@@ -379,11 +392,11 @@ document.addEventListener('DOMContentLoaded', function () {
         container.innerHTML = '';
         const years = new Set();
 
-        
+
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
             const card = clone.querySelector('.event-card');
-            
+
             const year = getAcademicYearFromDateStr(item.date);
             card.dataset.year = year;
             years.add(year);
@@ -398,25 +411,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (filterContainer) {
-            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+            filterContainer.innerHTML = '<button class="filter-btn active" data-filter="all">All</button>';
             [...years].sort().reverse().forEach(year => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.textContent = year;
-                btn.dataset.year = year;
+                btn.dataset.filter = year;
                 filterContainer.appendChild(btn);
             });
         }
 
-        setupFiltering(section.querySelectorAll('.event-card'), 'search-events', 'filters-events', 'year');
+        setupFiltering(section.querySelectorAll('.event-card'), 'search-events', [
+            { containerId: 'filters-events', attribute: 'year' }
+        ]);
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
-    
+
     function renderContributions(data) {
         const section = document.getElementById('contributions');
         const container = section.querySelector('.content-grid');
         const template = document.getElementById('template-contribution');
-        const filterContainer = document.getElementById('filters-contributions'); 
+        const filterContainer = document.getElementById('filters-contributions');
 
         if (!container || !template || !data) return;
         container.innerHTML = '';
@@ -425,12 +440,12 @@ document.addEventListener('DOMContentLoaded', function () {
         data.forEach(item => {
             const clone = template.content.cloneNode(true);
             const card = clone.querySelector('.contribution-card');
-            
+
             let year = 'Other';
             if (item.date) {
                 year = getAcademicYearFromDateStr(item.date);
             }
-            
+
             card.dataset.year = year;
             years.add(year);
 
@@ -444,20 +459,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (filterContainer) {
-            filterContainer.innerHTML = '<button class="filter-btn active" data-year="all">All</button>';
+            filterContainer.innerHTML = '<button class="filter-btn active" data-filter="all">All</button>';
             [...years].sort().reverse().forEach(year => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.textContent = year;
-                btn.dataset.year = year;
+                btn.dataset.filter = year;
                 filterContainer.appendChild(btn);
             });
         }
-        
-        setupFiltering(section.querySelectorAll('.contribution-card'), 'search-contributions', 'filters-contributions', 'year');
+
+        setupFiltering(section.querySelectorAll('.contribution-card'), 'search-contributions', [
+            { containerId: 'filters-contributions', attribute: 'year' }
+        ]);
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
-    
+
     function renderAwards(data) {
         const section = document.getElementById('awards');
         const container = section.querySelector('.content-grid');
@@ -474,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
             card.querySelector('.award-name').textContent = item.name;
             card.querySelector('.award-body').textContent = item.body;
             card.querySelector('.award-year').textContent = item.year;
-            
+
             container.appendChild(clone);
         });
         observeElements(section.querySelectorAll('[data-scroll]'));
@@ -490,14 +507,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const clone = template.content.cloneNode(true);
         clone.querySelector('.contact-text').textContent = data.message;
-        
+
         const emailLink = clone.querySelector('.contact-item.email');
         emailLink.href = `mailto:${data.email}`;
         emailLink.querySelector('span').textContent = data.email;
-        
+
         clone.querySelector('.address').textContent = data.address;
         clone.querySelector('.linkedin').href = data.linkedin;
         clone.querySelector('.scholar').href = data.scholar;
+        clone.querySelector('.scopus').href = data.scopus;
+        clone.querySelector('.orcid').href = data.orcid;
+        clone.querySelector('.publons').href = data.publons;
+        clone.querySelector('.vcet').href = data.vcet;
 
         const membershipsList = clone.querySelector('.memberships-list');
         if (data.memberships && data.memberships.length > 0) {
@@ -509,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             clone.querySelector('.memberships').style.display = 'none';
         }
-        
+
         container.appendChild(clone);
         observeElements(section.querySelectorAll('[data-scroll]'));
     }
@@ -540,10 +561,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 noteAudio.play().catch(error => console.error("Audio play failed:", error));
             }
         }
-        
+
         keys.forEach(k => k.classList.remove('active'));
         key.classList.add('active');
-        
+
         let sectionAlreadyRendered = true;
         contentSections.forEach(section => {
             const contentArea = section.querySelector('.content-grid') || section.querySelector('.timeline-container') || section.querySelector('.publication-list');
@@ -552,10 +573,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             section.classList.remove('active-section');
         });
-        
+
         if (targetSection) {
             targetSection.classList.add('active-section');
-            
+
             const renderFunction = sectionRenderers[sectionId];
             if (renderFunction && !sectionAlreadyRendered) {
                 const data = portfolioDataCache[sectionId];
@@ -595,7 +616,7 @@ document.addEventListener('DOMContentLoaded', function () {
             handleKeyActivation(document.activeElement);
         }
     });
-    
+
     const initializePage = async () => {
         observeElements(document.querySelectorAll('[data-scroll]'));
 

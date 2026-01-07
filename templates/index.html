@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Yogesh Pingle's Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="sticky-links">
-        <a href="#" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin fa-lg"></i></a>
-        <a href="#" target="_blank" aria-label="Google Scholar Profile"><i class="fas fa-graduation-cap fa-lg"></i></a>
+        <a href="https://www.linkedin.com/in/dr-yogesh-pingle-9922743a/" target="_blank"
+            aria-label="LinkedIn Profile"><i class="fab fa-linkedin fa-lg"></i></a>
+        <a href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=yogesh+pingle&btnG=&oq=yoge" target="_blank"
+            aria-label="Google Scholar Profile"><i class="fas fa-graduation-cap fa-lg"></i></a>
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=57170579400" target="_blank"
+            aria-label="Scopus Profile"><i class="fas fa-book fa-lg"></i></a>
+        <a href="https://orcid.org/0000-0003-2124-885X" target="_blank" aria-label="ORCID"><i
+                class="fab fa-orcid fa-lg"></i></a>
+        <a href="https://publons.com/researcher/3762151/yogesh-pingle/" target="_blank" aria-label="Publons Profile"><i
+                class="fas fa-certificate fa-lg"></i></a>
+        <a href="https://vcet.edu.in/information-technology/mr-yogesh-pingle/" target="_blank"
+            aria-label="VCET Profile"><i class="fas fa-school fa-lg"></i></a>
     </div>
 
     <div class="portfolio-container">
         <header data-scroll>
             <div class="header-content">
                 <h1>Dr. Yogesh Pingle</h1>
-                <h2>Dean Students Affairs,<br>
-                    Deputy Head of Department and Assistant Professor,<br>
+                <h2>Deputy Head of Department and Assistant Professor,<br>
                     Computer Science & Engineering (Data Science)<br>
                     Vidyavardhini's College of Engineering and Technology, Vasai(W),<br>
                     Affiliated to University of Mumbai, INDIA
                 </h2>
             </div>
             <div class="profile-image-container">
-                <img src="{{ url_for('static', filename='profile.png') }}" alt="Dr. Yogesh Pingle" class="profile-image">
+                <img src="{{ url_for('static', filename='profile.png') }}" alt="Dr. Yogesh Pingle"
+                    class="profile-image">
             </div>
         </header>
 
@@ -68,7 +82,7 @@
                         </div>
                         <div class="key" data-section="events" data-note="Pa" tabindex="0">
                             <span class="key-label">प</span>
-                            <span class="key-sublabel">Event Conducted</span>
+                            <span class="key-sublabel">FDP/SDP</span>
                         </div>
                         <div class="key" data-section="contributions" data-note="Dha" tabindex="0">
                             <span class="key-label">ध</span>
@@ -86,7 +100,7 @@
                 </div>
             </div>
         </nav>
-        
+
         <main id="content-container">
             <section id="about" class="content-section">
                 <h2 data-scroll>About</h2>
@@ -98,8 +112,7 @@
                 <div class="timeline-bar-container"></div>
                 <div class="content-grid"></div>
 
-                <h2 data-scroll class="section-subtitle">Continued Learning</h2>
-                <div id="certificates-container"></div>
+
             </section>
 
             <section id="experience" class="content-section">
@@ -109,26 +122,31 @@
 
             <section id="publications" class="content-section">
                 <h2 data-scroll>Selected Publications</h2>
-                <div class="section-controls">
-                    <input type="search" id="search-publications" class="section-search" placeholder="Search by title, author, or journal...">
-                    <div class="filter-group" id="filters-publications"></div>
+                <div class="section-controls publications-controls">
+                    <input type="search" id="search-publications" class="section-search"
+                        placeholder="Search by title, author, or journal...">
+                    <div class="filters-row">
+                        <div class="filter-group" id="filters-publications-category"></div>
+                        <div class="filter-group" id="filters-publications"></div>
+                    </div>
                 </div>
                 <div class="publication-list"></div>
             </section>
-            
+
             <section id="events" class="content-section">
-                <h2 data-scroll>Event Conducted</h2>
+                <h2 data-scroll>FDP/SDP</h2>
                 <div class="section-controls">
                     <input type="search" id="search-events" class="section-search" placeholder="Search events...">
                     <div class="filter-group" id="filters-events"></div>
                 </div>
                 <div class="content-grid"></div>
             </section>
-            
+
             <section id="contributions" class="content-section">
                 <h2 data-scroll>Key Contributions & Projects</h2>
                 <div class="section-controls">
-                    <input type="search" id="search-contributions" class="section-search" placeholder="Search contributions...">
+                    <input type="search" id="search-contributions" class="section-search"
+                        placeholder="Search contributions...">
                     <div class="filter-group" id="filters-contributions"></div>
                 </div>
                 <div class="content-grid"></div>
@@ -144,12 +162,12 @@
                 <div class="content-grid"></div>
             </section>
         </main>
-        
+
         <footer data-scroll>
             <p>&copy; 2025 Dr. Yogesh Pingle. All rights reserved.</p>
         </footer>
     </div>
-    
+
     <template id="template-education">
         <div class="content-card education-card" data-scroll>
             <div class="education-header">
@@ -168,7 +186,7 @@
             <p></p>
         </div>
     </template>
-    
+
     <template id="template-expertise">
         <div class="content-card expertise-card" data-scroll>
             <i class=""></i>
@@ -176,19 +194,9 @@
             <p></p>
         </div>
     </template>
-    
-    <template id="template-certificate-card">
-        <div class="content-card certificate-card">
-            <div class="certificate-image-wrapper">
-                <img src="" alt="" class="certificate-image">
-            </div>
-            <div class="certificate-info">
-                <h4 class="certificate-title"></h4>
-                <p class="certificate-issuer"></p>
-            </div>
-        </div>
-    </template>
-    
+
+
+
     <template id="template-experience">
         <div class="timeline-item" data-scroll>
             <div class="timeline-node-vertical"></div>
@@ -224,12 +232,13 @@
             </div>
             <div class="event-body">
                 <p class="event-detail"><strong class="detail-label">Role:</strong> <span class="event-role"></span></p>
-                <p class="event-detail"><strong class="detail-label">Organizer:</strong> <span class="event-organizer"></span></p>
+                <p class="event-detail"><strong class="detail-label">Organizer:</strong> <span
+                        class="event-organizer"></span></p>
                 <p class="event-detail"><strong class="detail-label">Date:</strong> <span class="event-date"></span></p>
             </div>
         </div>
     </template>
-    
+
     <template id="template-contribution">
         <div class="content-card contribution-card" data-scroll>
             <div class="contribution-header">
@@ -237,8 +246,10 @@
                 <i class="contribution-icon"></i>
             </div>
             <div class="contribution-body">
-                <p class="contribution-detail"><strong class="detail-label">Role:</strong> <span class="contribution-role"></span></p>
-                <p class="contribution-detail"><strong class="detail-label">Organization:</strong> <span class="contribution-organization"></span></p>
+                <p class="contribution-detail"><strong class="detail-label">Role:</strong> <span
+                        class="contribution-role"></span></p>
+                <p class="contribution-detail"><strong class="detail-label">Organization:</strong> <span
+                        class="contribution-organization"></span></p>
                 <p class="contribution-detail-desc"></p>
             </div>
         </div>
@@ -281,6 +292,22 @@
                     <i class="fas fa-graduation-cap"></i>
                     <span>Google Scholar</span>
                 </a>
+                <a href="" class="contact-item scopus" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-book"></i>
+                    <span>Scopus</span>
+                </a>
+                <a href="" class="contact-item orcid" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-orcid"></i>
+                    <span>ORCID</span>
+                </a>
+                <a href="" class="contact-item publons" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-certificate"></i>
+                    <span>Publons</span>
+                </a>
+                <a href="" class="contact-item vcet" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-school"></i>
+                    <span>VCET Profile</span>
+                </a>
             </div>
         </div>
     </template>
@@ -296,4 +323,5 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

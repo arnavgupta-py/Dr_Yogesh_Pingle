@@ -16,30 +16,6 @@
     "date": "Jan 2025"
   },
   {
-    "title": "Teaching Innovation: Flipped Classrooms",
-    "role": "Instructor",
-    "organization": "Academic Initiative",
-    "details": "Implemented flipped classroom strategies for Java and IoT applications, focusing on active problem-solving in class.",
-    "icon": "fas fa-chalkboard-teacher",
-    "date": "July 2024"
-  },
-  {
-    "title": "Project-Based Learning (PBL)",
-    "role": "Mentor",
-    "organization": "Academic Initiative",
-    "details": "Engaged students in real-world mini-projects managed via GitHub.",
-    "icon": "fab fa-github",
-    "date": "July 2024"
-  },
-  {
-    "title": "Open Educational Resources (OER)",
-    "role": "Advocate",
-    "organization": "Academic Initiative",
-    "details": "Integrated high-quality free resources (Java/Python docs) into the curriculum.",
-    "icon": "fas fa-book-open",
-    "date": "July 2024"
-  },
-  {
     "title": "MoU with DeltaSoft Systems",
     "role": "Coordinator",
     "organization": "DeltaSoft Systems Pvt. Ltd.",
@@ -65,7 +41,7 @@
   },
   {
     "title": "Student Council",
-    "role": "Member",
+    "role": "Faculty In-Charge",
     "organization": "Institute Level",
     "details": "Arranged judges and chief guests for 'Zeal 2025' cultural festival.",
     "icon": "fas fa-users",
@@ -86,30 +62,6 @@
     "details": "Reviewed technical papers for the conference.",
     "icon": "fas fa-glasses",
     "date": "Dec 2024"
-  },
-  {
-    "title": "Patent: Musical Medical Healing Device",
-    "role": "Inventor",
-    "organization": "The Patent Office Journal",
-    "details": "Published: 15/12/2023. Title: 'Musical Medical Illness Healing Electronic Device'.",
-    "icon": "fas fa-lightbulb",
-    "date": "15 Dec 2023"
-  },
-  {
-    "title": "Teaching Innovation: Online Tools",
-    "role": "Instructor",
-    "organization": "Academic Initiative",
-    "details": "Taught online tools (like JDoodle) enabling students to perform practicals on mobile devices.",
-    "icon": "fas fa-mobile-alt",
-    "date": "2023-2024"
-  },
-  {
-    "title": "Teaching Innovation: GitHub Usage",
-    "role": "Mentor",
-    "organization": "Academic Initiative",
-    "details": "Implemented GitHub for student project storage and version control.",
-    "icon": "fab fa-github",
-    "date": "2023-2024"
   },
   {
     "title": "Code-o-Fiesta Competition",

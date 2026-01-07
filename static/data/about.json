@@ -1,5 +1,5 @@
 {
-  "tagline": "A distinguished academic and visionary leader, Dr. Yogesh Pingle operates at the nexus of technological innovation and profound artistic insight. His career is a testament to a relentless pursuit of knowledge, from pioneering research in machine learning to shaping the next generation of data scientists. As a dedicated mentor and administrator, he fosters an environment where intellectual curiosity and groundbreaking ideas can flourish, building bridges between the complex world of data and the rich tapestry of human experience.",
+  "tagline": "I hold a PhD in Computer Engineering, along with an M.E. in Computers from Thadomal Shahani Engineering College and a B.E. in Computers from VJTI. I currently serve as Deputy Head of Department and Assistant Professor in the Computer Science & Engineering (Data Science) Department at Vasai, Maharashtra. I bring over 19 years of teaching experience and more than 10 years of industry experience as a software programmer, freelancer, and consultant.\n\nI have conducted over 90 hands-on workshops in areas including IoT, web programming, Java programming, and machine learning. My research contributions include 51 publications in IEEE conferences, Scopus-indexed journals, and other international conferences. I have also served as session chairperson and co-chairperson for the subject Internet of Things – Considerations and Applications at the IEEE international conference IndiaCom, from 2016 through 2025, held in New Delhi.\n\nAdditionally, I have authored 10 books published by Nirali Prakashan, SybGen Publications, and Technowledge Publications, covering topics such as the Internet of Things, Internet Programming, DBMS, and Computer Networks. I am also the proprietor of YPP Technologies, Vasai.",
   "expertise": [
     {
       "name": "Java",
@@ -27,9 +27,9 @@
       "description": "A commitment to global communication and cross-cultural perspectives, enabling deeper engagement with international research."
     },
     {
-      "name": "Indian Classical Music",
+      "name": "AI in Music Therapy",
       "icon": "fa-solid fa-music",
-      "description": "A lifelong passion that instills a unique sense of discipline, creativity, and structural understanding into his analytical work."
+      "description": "Integrating machine learning algorithms with music theory to develop innovative therapeutic interventions for cognitive and emotional health."
     }
   ]
 }

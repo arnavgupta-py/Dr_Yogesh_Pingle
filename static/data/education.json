@@ -4,83 +4,31 @@
       "degree": "Ph.D.",
       "branch": "Computer Engineering",
       "college": "Terna Engineering College, University of Mumbai",
-      "details": "Details to be added",
       "year": "2025"
     },
     {
       "degree": "M.E.",
       "branch": "Computer Engineering",
       "college": "Thadomal Shahani Engineering College, University of Mumbai",
-      "details": "Details to be added",
       "year": "2006"
     },
     {
       "degree": "B.E.",
       "branch": "Computer Engineering",
       "college": "Veermata Jijabai Technological Institute, University of Mumbai",
-      "details": "Details to be added",
       "year": "2000"
     },
     {
-      "degree": "D.E.",
+      "degree": "D.C.T",
       "branch": "Computer Technology",
       "college": "Bhausaheb Vartak Polytechnic,, MSBTE",
-      "details": "Details to be added",
       "year": "1997"
     },
     {
       "degree": "S.S.C.",
       "branch": null,
       "college": "New English School, Maharashtra State Board",
-      "details": "Details to be added",
       "year": "1992"
-    }
-  ],
-  "certificates": [
-    {
-      "year": "2023-2024",
-      "items": [
-        {
-          "title": "Advanced Machine Learning",
-          "issuer": "Coursera",
-          "image": "images/cert1.png"
-        },
-        {
-          "title": "Data Science with Python",
-          "issuer": "Udemy",
-          "image": "images/cert2.png"
-        },
-        {
-          "title": "Cloud Computing Basics",
-          "issuer": "AWS Academy",
-          "image": "images/cert3.png"
-        },
-        {
-          "title": "Cloud Computing Basics",
-          "issuer": "AWS Academy",
-          "image": "images/cert3.png"
-        }
-      ]
-    },
-    {
-      "year": "2022-2023",
-      "items": [
-        {
-          "title": "Java Programming Masterclass",
-          "issuer": "Skillsoft",
-          "image": "images/cert4.png"
-        },
-        {
-          "title": "IoT Fundamentals",
-          "issuer": "Cisco Networking Academy",
-          "image": "images/cert5.png"
-        },
-        {
-          "title": "German Language B1",
-          "issuer": "Goethe-Institut",
-          "image": "images/cert6.png"
-        }
-      ]
     }
   ]
 }

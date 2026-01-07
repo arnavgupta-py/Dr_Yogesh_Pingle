@@ -1,19 +1,8 @@
 [
   {
-    "title": "Dean Students Affairs",
+    "title": "Deputy Head of Department, Computer Science & Engineering (Data Science)",
     "institution": "Vidyavardhini's College of Engineering and Technology, Vasai",
-    "dates": "2023 - Present",
-    "responsibilities": [
-      "Oversee student welfare programs and initiatives.",
-      "Manage student council activities and inter-college events.",
-      "Address student grievances and provide guidance.",
-      "Develop policies to enhance the student experience."
-    ]
-  },
-  {
-    "title": "Deputy Head of Department, CSE (Data Science)",
-    "institution": "Vidyavardhini's College of Engineering and Technology, Vasai",
-    "dates": "2021 - 2023",
+    "dates": "July 2022 - Present",
     "responsibilities": [
       "Assisted in departmental administration and strategic planning.",
       "Member of the syllabus setting committee for the Data Science curriculum.",
@@ -22,9 +11,9 @@
     ]
   },
   {
-    "title": "Assistant Professor, CSE",
+    "title": "Assistant Professor, Computer Science & Engineering (Data Science)",
     "institution": "Vidyavardhini's College of Engineering and Technology, Vasai",
-    "dates": "2010 - 2021",
+    "dates": "July 2022 - Present",
     "responsibilities": [
       "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
       "Guided final year students on academic and research projects.",
@@ -33,9 +22,53 @@
     ]
   },
   {
-    "title": "Assistant Professor, CSE",
+    "title": "Assistant Professor, Information Technology",
     "institution": "Vidyavardhini's College of Engineering and Technology, Vasai",
-    "dates": "2010 - 2021",
+    "dates": "June 2007 - June 2022",
+    "responsibilities": [
+      "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
+      "Guided final year students on academic and research projects.",
+      "Published research papers in peer-reviewed journals.",
+      "Organized national-level technical symposiums."
+    ]
+  },
+  {
+    "title": "Lecturer (Ad-Hoc), Computer Engineering",
+    "institution": "Thakur College of Engineering & Technology",
+    "dates": "March 2007 - July 2007",
+    "responsibilities": [
+      "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
+      "Guided final year students on academic and research projects.",
+      "Published research papers in peer-reviewed journals.",
+      "Organized national-level technical symposiums."
+    ]
+  },
+  {
+    "title": "Lecturer (Ad-Hoc), Computer Engineering",
+    "institution": "Bhausaheb Vartak Polytechnic, Vasai",
+    "dates": "July 2003 - March 2007",
+    "responsibilities": [
+      "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
+      "Guided final year students on academic and research projects.",
+      "Published research papers in peer-reviewed journals.",
+      "Organized national-level technical symposiums."
+    ]
+  },
+  {
+    "title": "Visiting Lecturer",
+    "institution": "Vidyavardhini's College of Engineering and Technology, Vasai",
+    "dates": "February 2003 - April 2003",
+    "responsibilities": [
+      "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
+      "Guided final year students on academic and research projects.",
+      "Published research papers in peer-reviewed journals.",
+      "Organized national-level technical symposiums."
+    ]
+  },
+  {
+    "title": "Senior Software Developer",
+    "institution": "DC Infotech and Communication Limited, Andheri",
+    "dates": "October 2000 - October 2002",
     "responsibilities": [
       "Taught undergraduate courses in Java, Data Structures, and Database Systems.",
       "Guided final year students on academic and research projects.",

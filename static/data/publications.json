@@ -1,12 +1,23 @@
 [
   {
-    "title": "Optimized Self Guided Quantum GAN Based Scheduling Framework for Cloud Computing",
-    "authors": "Pingle, Y. (et al.)",
-    "outlet": "Transactions on Emerging Telecommunications Technologies (Wiley)",
+    "title": "DiaAssist — A IoT-Enabled Prototype for Non-Invasive Diabetes Screening and Vital Monitoring System",
+    "authors": "Pingle, Y. (Patent)",
+    "outlet": "Indian Patent Journal",
     "year": 2025,
-    "month": 3,
-    "link": "https://dblp.org/rec/journals/ett/SelvamBPS25",
-    "featured": true
+    "month": 12,
+    "link": "#",
+    "featured": true,
+    "category": "Patent"
+  },
+  {
+    "title": "RagaMoodSync: A Deep Learning Framework for Hindustani Raga Recommendations Driven by Facial Emotions",
+    "authors": "Pingle, Y., Ragha, L.",
+    "outlet": "International Journal of Information Technology (Springer)",
+    "year": 2025,
+    "month": 4,
+    "link": "https://doi.org/10.1007/s41870-025-02531-y",
+    "featured": true,
+    "category": "Journal"
   },
   {
     "title": "Harmonix: A Comprehensive Approach for Advance Music Composition using AI-ML",
@@ -15,7 +26,8 @@
     "year": 2025,
     "month": 4,
     "link": "https://ieeexplore.ieee.org/document/11115562",
-    "featured": true
+    "featured": true,
+    "category": "Conference"
   },
   {
     "title": "The Recognition of Doctor's Handwritten Prescriptions: A Linguistic and Societal Perspective",
@@ -24,25 +36,48 @@
     "year": 2025,
     "month": 4,
     "link": "https://ieeexplore.ieee.org/document/11115221",
-    "featured": true
+    "featured": true,
+    "category": "Conference"
   },
   {
-    "title": "RagaMoodSync: A Deep Learning Framework for Hindustani Raga Recommendations",
-    "authors": "Pingle, Y. (et al.)",
-    "outlet": "International Journal of Information Technology (Springer)",
-    "year": 2024,
-    "month": 10,
-    "link": "https://doi.org/10.1007/s41870-025-02531-y",
-    "featured": true
+    "title": "Optimized Self Guided Quantum Generative Adversarial Network Based Scheduling Framework for Efficient Resource Utilization in Cloud Computing",
+    "authors": "Selvam, P.M.S., Begum, S., Pingle, Y., Shrinivasan, S.",
+    "outlet": "Transactions on Emerging Telecommunications Technologies (Wiley)",
+    "year": 2025,
+    "month": 3,
+    "link": "https://doi.org/10.1002/ett.70120",
+    "featured": true,
+    "category": "Journal"
   },
   {
-    "title": "Statistical Assessment of Indian Classical Music's Role in Diabetes & Hypertension Management",
-    "authors": "Pingle, Y. (et al.)",
+    "title": "Efficient Deep Mood Based Hindustani Raga Music Recommendation Using Facial Emotion Expressions",
+    "authors": "Pingle, Y., Ragha, L.",
+    "outlet": "Int. J. of Reasoning-based Intelligent Systems (Inderscience)",
+    "year": 2025,
+    "month": 3,
+    "link": "https://doi.org/10.1504/IJRIS.2025.10070903",
+    "featured": true,
+    "category": "Journal"
+  },
+  {
+    "title": "Statistical Assessment of Indian Classical Music's Role in Diabetes, Thyroid, Hypertension Management",
+    "authors": "Pingle, Y., Ragha, L.",
     "outlet": "International Journal of Information Technology (Springer)",
     "year": 2024,
     "month": 10,
     "link": "https://doi.org/10.1007/s41870-024-02227-9",
-    "featured": true
+    "featured": true,
+    "category": "Journal"
+  },
+  {
+    "title": "Enhancing Patient Care through Computer Science Innovations in Healthcare Management",
+    "authors": "Malini, T., Pingle, Y.P., Krishna, K., Ghosh, R.K.",
+    "outlet": "African Journal of Biological Sciences",
+    "year": 2024,
+    "month": 8,
+    "link": "https://doi.org/10.48047/AFJBS.6.14.2024.8797-8804",
+    "featured": false,
+    "category": "Journal"
   },
   {
     "title": "Accuracy Prediction for Music Therapy Data using Kappa Model",
@@ -51,16 +86,38 @@
     "year": 2024,
     "month": 3,
     "link": "https://ieeexplore.ieee.org/document/10498965",
-    "featured": false
+    "featured": false,
+    "category": "Conference"
+  },
+  {
+    "title": "Reclaiming Serenity: Music Therapy and Holistic Wellness in a Modern World",
+    "authors": "Pingle, Y.P., Ragha, L.K.",
+    "outlet": "SIRJANA Journal",
+    "year": 2024,
+    "month": 1,
+    "link": "https://sirjana.in/wp-content/uploads/2024/01/2.SRJ23A302.pdf",
+    "featured": false,
+    "category": "Journal"
+  },
+  {
+    "title": "Music Healing Electronic Device",
+    "authors": "Pingle, Y. (Patent)",
+    "outlet": "Indian Patent Journal (App No: 202021021966)",
+    "year": 2023,
+    "month": 12,
+    "link": "#",
+    "featured": true,
+    "category": "Patent"
   },
   {
     "title": "An in-depth analysis of music structure and its effects on human body for music therapy",
-    "authors": "Pingle, Y. (et al.)",
-    "outlet": "Springer Journal (Multimedia Tools and Applications)",
+    "authors": "Pingle, Y., Ragha, L.",
+    "outlet": "Multimedia Tools and Applications (Springer)",
     "year": 2023,
     "month": 10,
     "link": "https://doi.org/10.1007/s11042-023-17290-w",
-    "featured": false
+    "featured": false,
+    "category": "Journal"
   },
   {
     "title": "A Review on the use of Machine Learning Techniques in Music Recommendation System",
@@ -69,7 +126,8 @@
     "year": 2023,
     "month": 3,
     "link": "https://ieeexplore.ieee.org/document/10112289",
-    "featured": false
+    "featured": false,
+    "category": "Conference"
   },
   {
     "title": "Data Warehousing and Mining",
@@ -78,7 +136,8 @@
     "year": 2023,
     "month": 3,
     "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9788119115099",
-    "featured": false
+    "featured": false,
+    "category": "Book"
   },
   {
     "title": "Computer Network",
@@ -87,7 +146,28 @@
     "year": 2023,
     "month": 2,
     "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789354518232",
-    "featured": false
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Intelligent Wearable Sweat Sensor Based Device For Monitoring and Recommending Personal Physical Fitness",
+    "authors": "Pingle, Y. (Patent)",
+    "outlet": "Indian Patent Journal (App No: 202111032293 A)",
+    "year": 2021,
+    "month": 8,
+    "link": "#",
+    "featured": true,
+    "category": "Patent"
+  },
+  {
+    "title": "Database Management System",
+    "authors": "Pingle, Y.P., Kolhe, L.N., Mane, P.S.",
+    "outlet": "Book (Nirali Prakashan, ISBN: 978-93-90437-43-6)",
+    "year": 2021,
+    "month": 1,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789390437436",
+    "featured": false,
+    "category": "Book"
   },
   {
     "title": "Internet of Things",
@@ -96,7 +176,67 @@
     "year": 2021,
     "month": 12,
     "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9788195567232",
-    "featured": false
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Prediction of Coronavirus Covid-19 cases using Linear Regression and Support Vector Machine",
+    "authors": "Kolhe, L., Pingle, Y., Kadam, P., Jain, V.",
+    "outlet": "International Journal of Advanced Science and Technology",
+    "year": 2020,
+    "month": 5,
+    "link": "http://sersc.org/journals/index.php/IJAST/article/view/1790",
+    "featured": false,
+    "category": "Journal"
+  },
+  {
+    "title": "Internet of Everything",
+    "authors": "Pingle, Y.P., Shinde, V.",
+    "outlet": "Book (Techknowledge Publications, ISBN: 978-93-89748-80-2)",
+    "year": 2020,
+    "month": 1,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789389748802",
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Internet of Things",
+    "authors": "Pingle, Y.P., Kamble, S., Waghmare, S.",
+    "outlet": "Book (ISBN: 978-93-89233-20-9)",
+    "year": 2019,
+    "month": 6,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789389233209",
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Internet of Things",
+    "authors": "Pingle, Y.P., Kolhe, L.N.",
+    "outlet": "Book (Tech-Max Publication, ISBN: 978-93-88200-57-8)",
+    "year": 2018,
+    "month": 1,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789388200578",
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Architecting of IoT",
+    "authors": "Pingle, Y.P., Shinde, V.",
+    "outlet": "Book (Tech-Max Publication, ISBN: 978-93-88200-57-8)",
+    "year": 2018,
+    "month": 1,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789388200578",
+    "featured": false,
+    "category": "Book"
+  },
+  {
+    "title": "Physical Computing and IoT Programming",
+    "authors": "Shirke, S., Pingle, Y., Kambli, M.",
+    "outlet": "Book (Tech-Max Publication, ISBN: 978-93-5077-090-0)",
+    "year": 2017,
+    "month": 1,
+    "link": "https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9789350770900",
+    "featured": false,
+    "category": "Book"
   }
-  
 ]

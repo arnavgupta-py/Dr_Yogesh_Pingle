@@ -1,32 +1,26 @@
 [
   {
-    "name": "Best Research Paper Award",
-    "body": "IEEE International Conference on Data Intelligence (ICDI)",
-    "year": 2024,
+    "name": "Harmonium Visharad",
+    "body": "Akhil Bharatiya Gandharva Mahavidyalaya, Miraj",
+    "year": "Academic",
+    "icon": "fas fa-music"
+  },
+  {
+    "name": "G-II German Language Certified",
+    "body": "Max Mueller Bhavan, Pune; Goethe-Institute of Germany",
+    "year": "Professional",
+    "icon": "fas fa-language"
+  },
+  {
+    "name": "All India Level Air Instrument Competition - 2nd Prize",
+    "body": "Swara Sadhana Samiti, Churchgate, Mumbai",
+    "year": "2004",
     "icon": "fas fa-trophy"
   },
   {
-    "name": "Excellence in Teaching Award",
-    "body": "Vidyavardhini's College of Engineering and Technology",
-    "year": 2022,
+    "name": "Limca Book of World Record Participation",
+    "body": "Continuous Instrument playing organized by Young Star Trust, Virar for 48 hours. Contributed Continuous Classical Harmonium Playing for 2 Hours",
+    "year": "Record",
     "icon": "fas fa-medal"
-  },
-  {
-    "name": "Young Scientist Grant",
-    "body": "Department of Science & Technology, India",
-    "year": 2021,
-    "icon": "fas fa-award"
-  },
-  {
-    "name": "First Place, 'Innovate India' Hackathon",
-    "body": "Project Mentorship",
-    "year": 2020,
-    "icon": "fas fa-star"
-  },
-  {
-    "name": "Certificate of Recognition",
-    "body": "Computer Society of India (CSI)",
-    "year": 2019,
-    "icon": "fas fa-certificate"
   }
 ]
