@@ -33,7 +33,24 @@ def save_json(filename, data):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    stats_file = os.path.join(DATA_DIR, 'stats.json')
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+        
+    stats = {"visitors": 0}
+    if os.path.exists(stats_file):
+        try:
+            with open(stats_file, 'r') as f:
+                stats = json.load(f)
+        except:
+            pass
+            
+    stats["visitors"] += 1
+    
+    with open(stats_file, 'w') as f:
+        json.dump(stats, f)
+        
+    return render_template('index.html', visitor_count=stats["visitors"])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
