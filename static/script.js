@@ -23,17 +23,27 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const fetchInitialData = async (sections) => {
-        try {
-            for (const section of sections) {
-                const response = await fetch(`static/data/${section}.json`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status} for ${section}.json`);
-                }
-                portfolioDataCache[section] = await response.json();
+        const promises = sections.map(section =>
+            fetch(`static/data/${section}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status} for ${section}.json`);
+                    }
+                    return response.json();
+                })
+                .then(data => ({ section, data }))
+        );
+
+        const results = await Promise.allSettled(promises);
+
+        results.forEach(result => {
+            if (result.status === 'fulfilled') {
+                const { section, data } = result.value;
+                portfolioDataCache[section] = data;
+            } else {
+                console.error(`Failed to load data for section:`, result.reason);
             }
-        } catch (error) {
-            console.error("Could not pre-fetch portfolio data:", error);
-        }
+        });
     };
 
     const observeElements = (elements) => {
@@ -93,15 +103,25 @@ document.addEventListener('DOMContentLoaded', function () {
         // Try to find a month name
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
             "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const monthRegex = new RegExp(`\\b(${monthNames.join('|')})\\b`, 'i');
-        const match = dateStr.match(monthRegex);
 
-        let monthIndex = 0; // Default to Jan if no month found (implies Spring semester of that year usually)
+        let monthIndex = 0; // Default to Jan (Winter/Spring) if no month found
 
-        if (match) {
-            const date = new Date(`${match[0]} 1, ${year}`);
-            monthIndex = date.getMonth();
+        try {
+            const monthRegex = new RegExp(`\\b(${monthNames.join('|')})\\b`, 'i');
+            const match = dateStr.match(monthRegex);
+
+            if (match) {
+                // formatting specifically to be parseable by Date()
+                const date = new Date(`${match[0]} 1, ${year}`);
+                if (!isNaN(date.getTime())) {
+                    monthIndex = date.getMonth();
+                }
+            }
+        } catch (e) {
+            console.warn("Date parsing warning:", e);
         }
+
+
 
         // Apply Logic: June (5) or later starts the year
         if (monthIndex >= 5) {
@@ -508,17 +528,29 @@ document.addEventListener('DOMContentLoaded', function () {
         const clone = template.content.cloneNode(true);
         clone.querySelector('.contact-text').textContent = data.message;
 
-        const emailLink = clone.querySelector('.contact-item.email');
-        emailLink.href = `mailto:${data.email}`;
-        emailLink.querySelector('span').textContent = data.email;
+        const emailsContainer = clone.querySelector('.emails-container');
+        if (data.emails && data.emails.length > 0) {
+            data.emails.forEach(email => {
+                const emailLink = document.createElement('a');
+                emailLink.href = `mailto:${email}`;
+                emailLink.className = 'contact-item email';
+                emailLink.innerHTML = `<i class="fas fa-envelope"></i><span>${email}</span>`;
+                emailsContainer.appendChild(emailLink);
+            });
+        }
 
         clone.querySelector('.address').textContent = data.address;
-        clone.querySelector('.linkedin').href = data.linkedin;
-        clone.querySelector('.scholar').href = data.scholar;
-        clone.querySelector('.scopus').href = data.scopus;
-        clone.querySelector('.orcid').href = data.orcid;
-        clone.querySelector('.publons').href = data.publons;
-        clone.querySelector('.vcet').href = data.vcet;
+
+        // Profiles
+        const profileSelectors = ['linkedin', 'scholar', 'scopus', 'orcid', 'publons', 'vcet'];
+        profileSelectors.forEach(profile => {
+            const link = clone.querySelector(`.${profile}`);
+            if (link && data[profile]) {
+                link.href = data[profile];
+            } else if (link) {
+                link.style.display = 'none';
+            }
+        });
 
         const membershipsList = clone.querySelector('.memberships-list');
         if (data.memberships && data.memberships.length > 0) {

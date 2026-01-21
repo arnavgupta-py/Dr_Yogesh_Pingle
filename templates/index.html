@@ -11,6 +11,8 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="description"
+        content="Portfolio of Dr. Yogesh Pingle, Deputy Head of Department and Assistant Professor in CSE (Data Science) at VCET, Mumbai. Explore publications, awards, and contributions.">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -272,58 +274,67 @@
 
     <template id="template-contact">
         <div class="content-card contact-card" data-scroll>
-            <div class="contact-message">
-                <p class="contact-text"></p>
+            <div class="contact-info-panel">
+                <div class="contact-header">
+                    <p class="contact-text"></p>
+                </div>
+                
+                <div class="contact-methods">
+                    <div class="emails-container">
+                        <!-- Emails will be dynamically added here -->
+                    </div>
+                    <div class="contact-item address-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="address"></span>
+                    </div>
+                </div>
+
                 <div class="memberships">
                     <h4 class="memberships-title">Professional Memberships</h4>
                     <ul class="memberships-list"></ul>
                 </div>
             </div>
-            <div class="contact-details">
-                <a href="" class="contact-item email">
-                    <i class="fas fa-envelope"></i>
-                    <span></span>
-                </a>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span class="address"></span>
+
+            <div class="profiles-panel">
+                <h4 class="profiles-title">Academic & Social Profiles</h4>
+                <div class="profiles-grid">
+                    <a href="" class="profile-link linkedin" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="" class="profile-link scholar" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Google Scholar</span>
+                    </a>
+                    <a href="" class="profile-link scopus" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book"></i>
+                        <span>Scopus</span>
+                    </a>
+                    <a href="" class="profile-link orcid" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-orcid"></i>
+                        <span>ORCID</span>
+                    </a>
+                    <a href="" class="profile-link publons" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-certificate"></i>
+                        <span>Publons</span>
+                    </a>
+                    <a href="" class="profile-link vcet" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-school"></i>
+                        <span>VCET Profile</span>
+                    </a>
                 </div>
-                <a href="" class="contact-item linkedin" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin"></i>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="" class="contact-item scholar" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Google Scholar</span>
-                </a>
-                <a href="" class="contact-item scopus" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-book"></i>
-                    <span>Scopus</span>
-                </a>
-                <a href="" class="contact-item orcid" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-orcid"></i>
-                    <span>ORCID</span>
-                </a>
-                <a href="" class="contact-item publons" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-certificate"></i>
-                    <span>Publons</span>
-                </a>
-                <a href="" class="contact-item vcet" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-school"></i>
-                    <span>VCET Profile</span>
-                </a>
             </div>
         </div>
     </template>
 
-    <audio id="audio-Sa" src="{{ url_for('static', filename='notes/Sa.wav')}}" preload="auto"></audio>
-    <audio id="audio-Re" src="{{ url_for('static', filename='notes/Re.wav')}}" preload="auto"></audio>
-    <audio id="audio-Ga" src="{{ url_for('static', filename='notes/Ga.wav')}}" preload="auto"></audio>
-    <audio id="audio-Ma" src="{{ url_for('static', filename='notes/Ma.wav')}}" preload="auto"></audio>
-    <audio id="audio-Pa" src="{{ url_for('static', filename='notes/Pa.wav')}}" preload="auto"></audio>
-    <audio id="audio-Dha" src="{{ url_for('static', filename='notes/Dha.wav')}}" preload="auto"></audio>
-    <audio id="audio-Ni" src="{{ url_for('static', filename='notes/Ni.wav')}}" preload="auto"></audio>
-    <audio id="audio-Sa_hi" src="{{ url_for('static', filename='notes/Sa_hi.wav')}}" preload="auto"></audio>
+    <audio id="audio-Sa" src="{{ url_for('static', filename='notes/Sa.ogg')}}" preload="none"></audio>
+    <audio id="audio-Re" src="{{ url_for('static', filename='notes/Re.ogg')}}" preload="none"></audio>
+    <audio id="audio-Ga" src="{{ url_for('static', filename='notes/Ga.ogg')}}" preload="none"></audio>
+    <audio id="audio-Ma" src="{{ url_for('static', filename='notes/Ma.ogg')}}" preload="none"></audio>
+    <audio id="audio-Pa" src="{{ url_for('static', filename='notes/Pa.ogg')}}" preload="none"></audio>
+    <audio id="audio-Dha" src="{{ url_for('static', filename='notes/Dha.ogg')}}" preload="none"></audio>
+    <audio id="audio-Ni" src="{{ url_for('static', filename='notes/Ni.ogg')}}" preload="none"></audio>
+    <audio id="audio-Sa_hi" src="{{ url_for('static', filename='notes/Sa_hi.ogg')}}" preload="none"></audio>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

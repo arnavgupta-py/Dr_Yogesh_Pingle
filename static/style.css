@@ -14,6 +14,13 @@
     --black-key-color: #2b2b2b;
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Lato', sans-serif;
+
+    /* Z-Index Layers */
+    --z-background: -2;
+    --z-background-twinkle: -1;
+    --z-normal: 1;
+    --z-timeline: 2;
+    --z-sticky: 1000;
 }
 
 html {
@@ -42,7 +49,7 @@ body::before {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: -2;
+    z-index: var(--z-background);
 }
 
 body::after {
@@ -54,7 +61,7 @@ body::after {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: -1;
+    z-index: var(--z-background-twinkle);
 }
 
 .portfolio-container {
@@ -216,7 +223,7 @@ header h2 {
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: var(--z-normal);
 }
 
 .black-key {
@@ -369,7 +376,7 @@ header h2 {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    z-index: 2;
+    z-index: var(--z-timeline);
     transition: transform 0.3s ease;
 }
 
@@ -490,7 +497,7 @@ a:hover {
     position: fixed;
     right: 25px;
     top: 25px;
-    z-index: 1000;
+    z-index: var(--z-sticky);
 }
 
 .sticky-links a {
@@ -1046,22 +1053,48 @@ footer {
 .contact-card {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: flex-start;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--glass-border-color);
 }
 
-.contact-message {
-    font-size: 1.05rem;
-    line-height: 1.8;
+.contact-info-panel {
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
     border-right: 1px solid var(--glass-border-color);
-    padding-right: 2.5rem;
 }
 
-.contact-details {
+.profiles-panel {
+    padding: 2.5rem;
+    background: rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+}
+
+.contact-header {
+    margin-bottom: 2rem;
+}
+
+.contact-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.emails-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }
 
 .contact-item {
@@ -1069,67 +1102,144 @@ footer {
     align-items: center;
     gap: 1rem;
     color: var(--text-color);
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 1rem;
-}
-
-.contact-item:hover span {
-    color: var(--heading-color);
-    text-shadow: 0 0 5px var(--primary-accent);
+    transition: all 0.3s ease;
 }
 
 .contact-item i {
-    font-size: 1.3rem;
-    width: 25px;
-    text-align: center;
-    color: var(--secondary-accent);
+    font-size: 1.2rem;
+    color: var(--primary-accent);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 8px;
+}
+
+.address-item {
+    align-items: flex-start;
+}
+
+.address-item i {
+    margin-top: 0.2rem;
+}
+
+.address {
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .memberships {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
     border-top: 1px solid var(--glass-border-color);
 }
 
 .memberships-title {
     font-family: var(--font-heading);
     color: var(--heading-color);
-    font-size: 1.2rem;
-    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+    margin: 0 0 1.2rem 0;
+    letter-spacing: 0.5px;
 }
 
 .memberships-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 0.9rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
 }
 
 .memberships-list li {
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    padding-left: 1.5rem;
     position: relative;
-    padding-left: 20px;
+    color: var(--text-color);
 }
 
 .memberships-list li::before {
-    content: '▪';
+    content: '🏆';
     position: absolute;
     left: 0;
+    font-size: 0.8rem;
+}
+
+.profiles-title {
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    font-size: 1.4rem;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.profile-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    background: var(--glass-bg-color);
+    border: 1px solid var(--glass-border-color);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    gap: 0.8rem;
+}
+
+.profile-link i {
+    font-size: 1.8rem;
     color: var(--secondary-accent);
+}
+
+.profile-link span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.profile-link:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--secondary-accent);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-link:hover i {
+    transform: scale(1.1);
+}
+
+.profile-link:hover span {
+    color: var(--heading-color);
 }
 
 @media (max-width: 992px) {
     .contact-card {
         grid-template-columns: 1fr;
-        gap: 2rem;
     }
 
-    .contact-message {
+    .contact-info-panel {
         border-right: none;
-        padding-right: 0;
         border-bottom: 1px solid var(--glass-border-color);
-        padding-bottom: 2rem;
+    }
+
+    .profiles-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .profiles-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1169,11 +1279,7 @@ footer {
     opacity: 1;
 }
 
-.contact-details {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-    gap: 1.2rem;
-}
+/* Removed the old contact-details grid as it's replaced by profiles-grid */
 
 .visitor-counter {
     margin-top: 1rem;

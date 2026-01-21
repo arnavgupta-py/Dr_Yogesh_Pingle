@@ -8,8 +8,10 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'static', 'data')
 
-app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_key_default') 
-PASSWORD = "pingle2025"
+app.secret_key = os.environ.get('SECRET_KEY')
+
+# Load password from environment variable
+PASSWORD = os.environ.get("ADMIN_PASSWORD")
 
 def login_required(f):
     @wraps(f)
@@ -19,7 +21,10 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+from werkzeug.utils import secure_filename
+
 def load_json(filename):
+    filename = secure_filename(filename)
     filepath = os.path.join(DATA_DIR, filename)
     if os.path.exists(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
@@ -27,6 +32,7 @@ def load_json(filename):
     return {}
 
 def save_json(filename, data):
+    filename = secure_filename(filename)
     filepath = os.path.join(DATA_DIR, filename)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
@@ -96,4 +102,6 @@ if __name__ == '__main__':
         print(f"WARNING: 'templates' folder not found at {template_path}")
 
     print(f" Server running. serving files from: {BASE_DIR}")
-    app.run(debug=True, port=5000)
+    # Use environment variable to control debug mode, default to False for production safety
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

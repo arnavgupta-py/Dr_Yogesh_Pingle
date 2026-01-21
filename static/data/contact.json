@@ -1,7 +1,10 @@
 {
   "message": "I am always open to discussing research collaborations, mentoring opportunities for students, and guest lectures. Please feel free to get in touch.",
-  "email": "yogesh.pingle@vcet.edu.in",
-  "address": "Vidyavardhini's College of Engineering and Technology, Vasai, Maharashtra, India",
+  "emails": [
+    "yogesh.pingle@vcet.edu.in",
+    "yogeshpingle1977@gmail.com"
+  ],
+  "address": "47/2, Yogayog bunglow, Shenodi wadi, Adivasi Pada, opposite Roman Residency, Vadvali, Naigaon, Vasai (West), Dist- Palghar, Maharashtra, INDIA, Pincode - 401 201",
   "linkedin": "https://www.linkedin.com/in/dr-yogesh-pingle-9922743a/",
   "scholar": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=yogesh+pingle&btnG=&oq=yoge",
   "scopus": "https://www.scopus.com/authid/detail.uri?authorId=57170579400",
@@ -12,7 +15,7 @@
   "memberships": [
     "Senior Member, IEEE",
     "Member, Association for Computing Machinery (ACM)",
-    "Life Member, Computer Society of India (CSI)",
-    "Life Member, The Indian Society for Technical Education (ISTE)"
+    "Life Member of Computer Society of India (LM 01161406)",
+    "Life Member of Indian Society for Technical Education (LM 58653)"
   ]
 }
